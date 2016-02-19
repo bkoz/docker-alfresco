@@ -29,6 +29,7 @@ RUN /tmp/install_java.sh && \
 COPY assets/install_alfresco.sh /tmp/install_alfresco.sh
 RUN /tmp/install_alfresco.sh && \
     rm -f /tmp/install_alfresco.sh
+RUN mkdir -p /alfresco/tomcat/lib
 # install mysql connector for alfresco
 COPY assets/install_mysql_connector.sh /tmp/install_mysql_connector.sh
 RUN /tmp/install_mysql_connector.sh && \
