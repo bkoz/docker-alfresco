@@ -42,6 +42,7 @@ COPY assets/init.sh /alfresco/init.sh
 COPY assets/supervisord.conf /etc/supervisord.conf
 
 VOLUME /alfresco/tomcat/logs
+VOLUME /alfresco/alf_data
 
 EXPOSE 21 137 138 139 445 7070 8009 8080
 CMD /usr/bin/supervisord -c /etc/supervisord.conf -n
