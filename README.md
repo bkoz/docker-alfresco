@@ -12,6 +12,7 @@ docker-alfresco
   - [Database](#database)
   - [Options](#options)
 - [Upgrading](#upgrading)
+- [OpenShift](#openshift)
 - [References](#references)
 
 
@@ -158,6 +159,48 @@ using environment variables.
 TODO: I might be able to add some options that aid in upgrading.  For now though,
 backup, backup, backup, and then follow this guide:
 * http://docs.alfresco.com/community/concepts/ch-upgrade.html
+
+# OpenShift
+
+Running the alfresco container on OpenShift requires the anyuid SCC.
+
+As the cluster admin, run the following to grant the anyuid scc to authenticated users.
+
+$ oadm policy add-scc-to-group anyuid system:authenticated
+
+Create 2 pvcs, one for mysql and one for alfresco.
+
+Example:
+
+$ cat pvc.yaml << EOF 
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "alfresco"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
+EOF
+
+$ oc create -f pvc.yaml
+
+Create the database pod and set a few important parameters.
+
+$ oc new-app --template=mysql-persistent -p MYSQL_USER=alfresco,MYSQL_PASSWORD=admin,MYSQL_DATABASE=alfresco
+
+Create the Alfresco pod from gui81's docker hub.
+
+$ oc new-app docker.io/gui81/alfresco -p DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
+
+A different option is to build the alfresco image from rsippl's Dockerfile on github.
+
+$ oc new-app https://github.com/rsippl/docker-alfresco.git -p DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
+
+Create pvc for /content and add to docker-alfresco deployment config. This is most easily accomplished using the
+OpenShift web console.
 
 
 # References
