@@ -200,7 +200,7 @@ A different option is to build the alfresco image from rsippl's Dockerfile on gi
 $ oc new-app https://github.com/rsippl/docker-alfresco.git -p DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
 
 Create pvc for /content and add to docker-alfresco deployment config. This is most easily accomplished using the
-OpenShift web console.
+OpenShift web console. Also create a route and change the port to 8080/tcp.
 
 
 # References
