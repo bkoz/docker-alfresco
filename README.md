@@ -165,10 +165,12 @@ backup, backup, backup, and then follow this guide:
 Running the alfresco container on OpenShift requires the anyuid SCC.
 
 As the cluster admin, run the following to grant the anyuid scc to authenticated users.
-
+```
 $ oadm policy add-scc-to-group anyuid system:authenticated
+```
+Now login as an authenticated user.
 
-Create 2 pvcs, one for mysql and one for alfresco.
+Create a pvc for alfresco.
 
 Example:
 
