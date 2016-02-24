@@ -162,7 +162,7 @@ backup, backup, backup, and then follow this guide:
 
 # OpenShift
 
-Running the alfresco container on OpenShift requires the anyuid SCC.
+Running the alfresco container on OpenShift requires the anyuid security context constraint (SCC).
 
 As the cluster admin, run the following to grant the anyuid scc to authenticated users.
 ```
