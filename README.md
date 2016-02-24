@@ -185,7 +185,7 @@ A different option is to build the alfresco image from rsippl's Dockerfile on gi
 $ oc new-app https://github.com/rsippl/docker-alfresco.git -e DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
 ```
 
-Assuming that your OpenShift cluster has allocated persistent volumes, Create a persistent volume claim for /content and add it to the docker-alfresco deployment config. This is most easily accomplished using the
+Assuming that your OpenShift cluster has allocated persistent volumes, create a persistent volume claim for /content and add it to the docker-alfresco deployment config. This is most easily accomplished using the
 OpenShift web console. Also create a route and change the port to 8080/tcp.
 
 Example:
