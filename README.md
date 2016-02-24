@@ -172,6 +172,7 @@ Create 2 pvcs, one for mysql and one for alfresco.
 
 Example:
 
+```
 $ cat pvc.yaml << EOF 
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
@@ -184,6 +185,7 @@ spec:
     requests:
       storage: "1Gi"
 EOF
+```
 
 $ oc create -f pvc.yaml
 
@@ -193,11 +195,11 @@ $ oc new-app --template=mysql-persistent -p MYSQL_USER=alfresco,MYSQL_PASSWORD=a
 
 Create the Alfresco pod from gui81's docker hub.
 
-$ oc new-app docker.io/gui81/alfresco -p DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
+$ oc new-app docker.io/gui81/alfresco -e DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
 
 A different option is to build the alfresco image from rsippl's Dockerfile on github.
 
-$ oc new-app https://github.com/rsippl/docker-alfresco.git -p DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
+$ oc new-app https://github.com/rsippl/docker-alfresco.git -e DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
 
 Create pvc for /content and add to docker-alfresco deployment config. This is most easily accomplished using the
 OpenShift web console. Also create a route and change the port to 8080/tcp.
