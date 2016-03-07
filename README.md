@@ -168,6 +168,12 @@ As the cluster admin, run the following to grant the anyuid scc to authenticated
 ```
 $ oadm policy add-scc-to-group anyuid system:authenticated
 ```
+OR
+
+```
+oadm policy add-scc-to-user anyuid -z default -n PROJECT
+```
+
 Now login as an authenticated user.
 
 Create the database pod and set a few important parameters.
