@@ -214,7 +214,7 @@ $ oc create -f pvc.yaml
 ```
 Add the pvc to the deployment config.
 ```
-oc volume dc/docker-alfresco --add --mount-path=/content --name=myvol -t pvc --claim-name=alfresco
+oc volume dc/docker-alfresco --add --mount-path=/content --name=contentvol -t pvc --claim-name=alfresco
 ```
 
 Change the port to 8080/tcp and expose the service.
