@@ -180,21 +180,20 @@ Create the database pod and set a few important parameters.
 ```
 $ oc new-app --template=mysql-persistent -p MYSQL_USER=alfresco,MYSQL_PASSWORD=admin,MYSQL_DATABASE=alfresco
 ```
-
 Create the Alfresco pod from gui81's docker hub.
 ```
 $ oc new-app docker.io/gui81/alfresco -e DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
 ```
+OR
 
-A different option is to build the alfresco image from rsippl's Dockerfile on github.
+A second option is to build the alfresco image from rsippl's Dockerfile on github.
 ```
 $ oc new-app https://github.com/rsippl/docker-alfresco.git -e DB_KIND=mysql,DB_HOST=mysql,CONTENT_STORE=/content
 ```
-
 Assuming that your OpenShift cluster has allocated persistent volumes, create a persistent volume claim for /content and add it to the docker-alfresco deployment config. This is most easily accomplished using the
-OpenShift web console. Also create a route and change the port to 8080/tcp.
+OpenShift web console but can also be done from the command line.
 
-Example:
+Create the PVC.
 
 ```
 $ cat pvc.yaml << EOF 
@@ -213,7 +212,20 @@ EOF
 ```
 $ oc create -f pvc.yaml
 ```
+Add the pvc to the deployment config.
+```
+oc volume dc/docker-alfresco --add --mount-path=/content --name=myvol -t pvc --claim-name=alfresco
+```
 
+Change the port to 8080/tcp and expose the service.
+
+```
+$ oc delete service docker-alfresco
+$ oc expose dc docker-alfresco  --port=8080 --protocol=tcp
+$ oc expose service docker-alfresco --hostname=alfresco.myapps.mydomain.com
+```
+
+Visit the Alfresco welcome page at http://alfresco.myapps.mydomain.com/share
 
 # References
 * http://www.alfresco.com/community
