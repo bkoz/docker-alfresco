@@ -164,7 +164,7 @@ backup, backup, backup, and then follow this guide:
 
 Running the alfresco container on OpenShift requires the anyuid security context constraint (SCC).
 
-Login as the cluster admin, create an alfresco project and make the user "al" the project admin. Then grant this project the "anyuid" security context constraint so it can run as any user id within OpenShift. This should be used with discression.
+Login as the cluster admin, create an alfresco project and make the user "al" the project admin. Then grant the default service account for this project the "anyuid" security context constraint so it can run as any user id within OpenShift. This should be used with caution as the container will run with elevated priviledges.
 
 ```
 $ oc new-project alfresco
