@@ -169,7 +169,7 @@ Login as the cluster admin, create an alfresco project and make the user "al" th
 ```
 $ oc new-project alfresco
 $ oadm policy add-scc-to-user anyuid -z default -n alfresco
-$ oc policy add-role-to-user admin al
+$ oc policy add-role-to-user admin al -n alfresco
 ```
 Now login as the user "al".
 
